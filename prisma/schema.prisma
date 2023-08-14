@@ -1,7 +1,7 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
-//! npx prisma format (bh trigl w7dha lmachakl t3 relation)
-
+//! npx prisma format  (bh trigl w7dha lmachakl t3 relation)
+// ! npx prisma studio (yjina kima mysql fl browser mnadam b1)
 generator client {
   provider = "prisma-client-js"
 }
