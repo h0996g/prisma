@@ -1,14 +1,20 @@
 const prisma = require('../db')
 const { hashPasswords, creatJWT, comparePasswords } = require('../modules/auth')
 exports.createNewUser = async (req, res) => {
-    const user = await prisma.user.create({
-        data: {
-            username: req.body.username
-            , password: await hashPasswords(req.body.password)
-        }
-    })
-    const token = creatJWT(user)
-    res.json({ token: token })
+    try {
+        const user = await prisma.user.create({
+            data: {
+                username: req.body.username
+                , password: await hashPasswords(req.body.password)
+            }
+        })
+        const token = creatJWT(user)
+        res.json({ token: token })
+    } catch (e) {
+        console.log(e)
+        res.json({ message: 'deja exist' })
+    }
+
 
 }
 exports.signin = async (req, res) => {
