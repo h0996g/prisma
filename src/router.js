@@ -1,38 +1,17 @@
 const express = require('express');
 const { body, validationResult } = require('express-validator');
 const { handleInputErrors: errMiddleware } = require('./modules/middleware');
+const { getProducts: getAllProducts, getOneProduct, updateProduct, creatProduct, deletProduct } = require('./handlers/product');
 
 const router = express.Router();
 /** 
  * Product
 **/
-router.get('/product', (req, res) => {
-    res.json({
-        message: 'hi',
-        // user: req.username,
-        user: req.user
-    })
-
-});
-router.get('/product/:id', (req, res) => {
-
-});
-router.put('/product/:id', body('name').optional(), errMiddleware, (req, res) => {
-    // const errors = validationResult(req);
-    // console.log(errors)
-    // if (!errors.isEmpty()) {
-    //     res.status(400);
-    //     res.json({ errors: errors.array() });
-    // }
-
-
-});
-router.post('/product', body('name').exists().isString(), errMiddleware, (req, res) => {
-
-});
-router.delete('/product/:id', (req, res) => {
-
-});
+router.get('/product', getAllProducts, getAllProducts);
+router.get('/product/:id', getOneProduct);
+router.put('/product/:id', body('name').optional(), errMiddleware, updateProduct);
+router.post('/product', body('name').exists().isString(), errMiddleware, creatProduct);
+router.delete('/product/:id', deletProduct);
 /** 
  * Update
 **/
