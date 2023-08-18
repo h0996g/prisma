@@ -1,13 +1,15 @@
 const express = require('express');
 const { body, validationResult } = require('express-validator');
 const { handleInputErrors: errMiddleware } = require('./modules/middleware');
-const { getProducts: getAllProducts, getOneProduct, updateProduct, creatProduct, deletProduct } = require('./handlers/product');
+const { getProducts, getOneProduct, updateProduct, creatProduct, deletProduct, getMyProducts } = require('./handlers/product');
+const { getUpdates, getOneUpdate, updateUpdate, createUpdate, deleteUpdate } = require('./handlers/update');
 
 const router = express.Router();
 /** 
  * Product
 **/
-router.get('/product', getAllProducts, getAllProducts);
+router.get('/product', getProducts);
+router.get('/productMy', getMyProducts);
 router.get('/product/:id', getOneProduct);
 router.put('/product/:id', body('name').optional(), errMiddleware, updateProduct);
 router.post('/product', body('name').exists().isString(), errMiddleware, creatProduct);
@@ -15,33 +17,26 @@ router.delete('/product/:id', deletProduct);
 /** 
  * Update
 **/
-router.get('/update', (req, res) => {
-
-});
-router.get('/update/:id', (req, res) => {
-
-});
+router.get('/update', getUpdates);
+router.get('/update/:id', getOneUpdate);
 router.put('/update/:id',
     body('title').optional(),
     body('body').optional(),
     body('varsion').optional(),
     body('asset').optional(),
-    body('status').isIn(['IN_PROGRESS', 'SHIPING', 'DEPRECATED']),
+    body('status').isIn(['IN_PROGRESS', 'SHIPING', 'DEPRECATED']).optional(),
     errMiddleware,
-    (req, res) => {
-    });
+    updateUpdate);
 router.post('/update',
     body('title').exists().isString(),
     body('body').exists().isString(),
     body('varsion').exists().isString(),
-    body('asset').exists().isString(),
+    // body('asset').exists().isString(),
+    body('productId').exists().isString(),
     errMiddleware,
-    (req, res) => {
-
-    });
-router.delete('/update/:id', (req, res) => {
-
-});
+    createUpdate);
+router.delete('/update/:id',
+    deleteUpdate);
 /** 
  * UpdatebPoint
 **/

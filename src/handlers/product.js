@@ -1,5 +1,15 @@
 const prisma = require('../db')
 exports.getProducts = async (req, res) => {
+    const product = await prisma.user.findMany({
+        include: {
+            products: true
+        }
+
+
+    })
+    res.json({ data: product })
+}
+exports.getMyProducts = async (req, res) => {
     const user = await prisma.user.findUnique({
         where: {
             id: req.user.id

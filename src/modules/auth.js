@@ -12,7 +12,7 @@ exports.hashPasswords = (password) => {
 
 
 exports.creatJWT = (user) => {
-    const token = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET, { expiresIn: '1h' })
+    const token = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET)
     return token
 }
 exports.protect = async (req, res, next) => {
